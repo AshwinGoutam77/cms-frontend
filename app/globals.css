@@ -3,6 +3,32 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --color-1: #0e212f;
+  --color-2: #122838;
+  --color-3: #172837;
+  --color-4: #006afa;
+  --color-5: #00ffde;
+  --color-6: #ffffff;
+  --color-7: #000000;
+  --color-8: #5f5f5f;
+  --primary-nav-color: #0D1A2B;
+  --secondary-nav-color: #182438;
+  --default-border-radius: 20px;
+  font-size: 17px;
+  --FranklinGothic: franklin-gothic-urw;
+  --sidebar-top-position: 84px;
+  --gradient-background: linear-gradient(135deg, var(--color-5) 15%, var(--color-4) 85%);
+  --gradient-card-background: linear-gradient(180deg, var(--color-5) 15%, var(--color-4) 85%);
+  --gradient-icon-background: linear-gradient(180deg, var(--color-4) 15%, var(--color-5) 85%);
+  --gradient-button-background: linear-gradient(135deg, var(--color-4) 15%, var(--color-5) 85%);
+  --gradient-header-background: linear-gradient(135deg, var(--color-4) 40%, var(--color-5) 100%);
+  --border-gradient-background: linear-gradient(45deg, rgba(0, 106, 250, 1) 0%, rgba(0, 255, 222, 1) 100%);
+  --quote-gradient-background: linear-gradient(180deg, var(--color-4) 50%, var(--color-5) 50%);
+  --menu-items-bg: rgba(14, 33, 47, 0.95);
+  --menu-content-bg: rgba(14, 33, 47, 0.95);
+  --menu-content-height: 73vh;
+  --gradient-circle-background: linear-gradient(310deg, var(--color-5) 15%, var(--color-4) 85%);
+  --circle-arrow-background: #00E3E3;
 }
 
 @theme inline {
@@ -23,4 +49,89 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.primary-btn-header {
+  font-size: 1rem;
+  background: var(--gradient-button-background);
+  border-width: initial;
+  border-style: initial;
+  border-color: transparent;
+  border-image: initial;
+  border-radius: 100px;
+  padding: 0.6rem 1.5rem;
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.primary-btn {
+  font-size: 1rem;
+  background: var(--gradient-button-background);
+  border-width: initial;
+  border-style: initial;
+  border-color: transparent;
+  border-image: initial;
+  border-radius: 100px;
+  padding: 1.3rem 2rem;
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.secondary-btn {
+  background: transparent;
+  border: 1px solid #fff;
+  border-radius: 30px;
+  padding: 10px 2.17rem;
+  font-size: 20px !important;
+  line-height: 1.7 !important;
+  font-weight: 600;
+  color: white;
+}
+
+.usecase-swiper .swiper-pagination {
+  margin-top: 40px;
+  position: relative;
+}
+
+.usecase-swiper .swiper-pagination-bullet {
+  background: var(--color-4);
+  opacity: 0.4;
+}
+
+.usecase-swiper .swiper-pagination-bullet-active {
+  opacity: 1;
+}
+
+.color-text {
+  background: var(--gradient-button-background);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 0;
+  height: 1px;
+  background: white;
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* global.css */
+.noise-bg {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
 }

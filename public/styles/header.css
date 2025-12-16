@@ -1,0 +1,46 @@
+.header-group {
+    position: absolute;
+    width: 100%;
+    z-index: 100;
+}
+
+.main-header {
+    padding: 24px 32px;
+}
+
+.navbar-dark .nav-link {
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 15px;
+}
+
+.navbar-nav {
+    gap: 34px;
+}
+
+.dropdown-menu {
+    background: #0a1b2e;
+    border: none;
+    padding: 20px 0;
+}
+
+.dropdown-menu .nav-link {
+    padding: 8px 24px;
+    white-space: nowrap;
+}
+
+.dropdown-menu .nav-link:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.header-contact .btn-primary {
+    background: linear-gradient(90deg, #00e5ff, #007bff);
+    border-radius: 999px;
+    padding: 10px 26px;
+    border: none;
+}
+
+.lang-switch {
+    color: white;
+    font-weight: 500;
+}

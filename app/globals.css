@@ -11,24 +11,56 @@
   --color-6: #ffffff;
   --color-7: #000000;
   --color-8: #5f5f5f;
-  --primary-nav-color: #0D1A2B;
+  --primary-nav-color: #0d1a2b;
   --secondary-nav-color: #182438;
   --default-border-radius: 20px;
   font-size: 17px;
   --FranklinGothic: franklin-gothic-urw;
   --sidebar-top-position: 84px;
-  --gradient-background: linear-gradient(135deg, var(--color-5) 15%, var(--color-4) 85%);
-  --gradient-card-background: linear-gradient(180deg, var(--color-5) 15%, var(--color-4) 85%);
-  --gradient-icon-background: linear-gradient(180deg, var(--color-4) 15%, var(--color-5) 85%);
-  --gradient-button-background: linear-gradient(135deg, var(--color-4) 15%, var(--color-5) 85%);
-  --gradient-header-background: linear-gradient(135deg, var(--color-4) 40%, var(--color-5) 100%);
-  --border-gradient-background: linear-gradient(45deg, rgba(0, 106, 250, 1) 0%, rgba(0, 255, 222, 1) 100%);
-  --quote-gradient-background: linear-gradient(180deg, var(--color-4) 50%, var(--color-5) 50%);
+  --gradient-background: linear-gradient(
+    135deg,
+    var(--color-5) 15%,
+    var(--color-4) 85%
+  );
+  --gradient-card-background: linear-gradient(
+    180deg,
+    var(--color-5) 15%,
+    var(--color-4) 85%
+  );
+  --gradient-icon-background: linear-gradient(
+    180deg,
+    var(--color-4) 15%,
+    var(--color-5) 85%
+  );
+  --gradient-button-background: linear-gradient(
+    135deg,
+    var(--color-4) 15%,
+    var(--color-5) 85%
+  );
+  --gradient-header-background: linear-gradient(
+    135deg,
+    var(--color-4) 40%,
+    var(--color-5) 100%
+  );
+  --border-gradient-background: linear-gradient(
+    45deg,
+    rgba(0, 106, 250, 1) 0%,
+    rgba(0, 255, 222, 1) 100%
+  );
+  --quote-gradient-background: linear-gradient(
+    180deg,
+    var(--color-4) 50%,
+    var(--color-5) 50%
+  );
   --menu-items-bg: rgba(14, 33, 47, 0.95);
   --menu-content-bg: rgba(14, 33, 47, 0.95);
   --menu-content-height: 73vh;
-  --gradient-circle-background: linear-gradient(310deg, var(--color-5) 15%, var(--color-4) 85%);
-  --circle-arrow-background: #00E3E3;
+  --gradient-circle-background: linear-gradient(
+    310deg,
+    var(--color-5) 15%,
+    var(--color-4) 85%
+  );
+  --circle-arrow-background: #00e3e3;
 }
 
 @theme inline {
@@ -50,6 +82,14 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@media (min-width: 1440px) {
+    .container {
+        max-width: 1270px !important;
+    }
+}
+
+
 
 .primary-btn-header {
   font-size: 1rem;

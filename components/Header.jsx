@@ -2,67 +2,84 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 
 export default function Header() {
-    const [open, setOpen] = useState(false);
+  const [header, setHeader] = useState(null);
 
-    return (
-        <motion.nav
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="border-b border-white/10"
-        >
-            <div className="container mx-auto px-6 py-4">
-                <div className="flex items-center justify-between">
+  useEffect(() => {
+    fetch("http://localhost:1337/api/header?populate=*")
+      .then((res) => res.json())
+      .then((json) => setHeader(json.data));
+  }, []);
 
-                    {/* Logo + Nav */}
-                    <div className="flex items-center gap-20">
-                        <Link href="/" className="flex items-center gap-2">
-                            <img
-                                src="https://kpidigital.com/wp-content/uploads/2022/12/kpi-logo-white.svg"
-                                alt="logo"
-                                width="180"
-                                height="40"
-                            />
-                        </Link>
+  if (!header) return null;
 
-                        <div className="hidden lg:flex items-center gap-8">
-                            {["What We Do", "Who We Are", "Use Cases", "Our Partners", "Resources"].map((item, i) => (
-                                <motion.a
-                                    key={item}
-                                    initial={{ opacity: 0, y: -10 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.3 + i * 0.08 }}
-                                    href="#"
-                                    className="text-white/90 hover:text-white text-sm"
-                                >
-                                    {item}
-                                </motion.a>
-                            ))}
-                        </div>
-                    </div>
+  return (
+    <motion.nav
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="border-b border-white/10"
+    >
+      <div className="mx-auto px-10 py-5">
+        <div className="flex items-center justify-between">
 
-                    {/* Right Side */}
-                    <motion.div
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.6 }}
-                        className="flex items-center gap-6"
-                    >
-                        <Link href="#" className="text-white/90 text-sm">
-                            Our Divisions
-                        </Link>
-                        <Link href="#" className="text-white/90 text-sm">
-                            FR
-                        </Link>
-                        <Button className="primary-btn-header">Contact Us</Button>
-                    </motion.div>
+          {/* LOGO + NAV */}
+          <div className="flex items-center gap-20">
+            <Link href="/" className="flex items-center gap-2">
+              <img
+                src={`http://localhost:1337${header.Logo.url}`}
+                alt="logo"
+                width="180"
+                height="40"
+              />
+            </Link>
 
-                </div>
+            {/* MAIN NAV */}
+            <div className="hidden lg:flex items-center gap-8">
+              {header.navLinks.map((item, i) => (
+                <motion.a
+                  key={item.id}
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 + i * 0.08 }}
+                  href={item.url}
+                  className="text-white/90 hover:text-white text-sm"
+                >
+                  {item.label}
+                </motion.a>
+              ))}
             </div>
-        </motion.nav>
-    );
+          </div>
+
+          {/* RIGHT SIDE */}
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+            className="flex items-center gap-6"
+          >
+            {header.rightLinks.map((item) =>
+              item.label === "Contact Us" ? (
+                <Button key={item.id} className="primary-btn-header">
+                  {item.label}
+                </Button>
+              ) : (
+                <Link
+                  key={item.id}
+                  href={item.url}
+                  className="text-white/90 text-sm"
+                >
+                  {item.label}
+                </Link>
+              )
+            )}
+          </motion.div>
+
+        </div>
+      </div>
+    </motion.nav>
+  );
 }

@@ -1,19 +1,16 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import { useRef, useEffect, useState } from "react";
+import { useRef } from "react";
 import CountUp from "react-countup";
-
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
+import { urlFor } from "@/lib/sanity";
 
 import "swiper/css";
 import "swiper/css/pagination";
 
-const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL;
-
-/* ---------------- COUNTER ---------------- */
-
+/* COUNTER */
 function StatCounter({ value, label }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
@@ -29,40 +26,23 @@ function StatCounter({ value, label }) {
   );
 }
 
-export default function Stats() {
-  const [data, setData] = useState(null);
-
-  useEffect(() => {
-    fetch(
-      `${STRAPI_URL}/api/statss?populate[counters]=*&populate[cases][populate]=image&populate=cta`
-    )
-      .then((res) => res.json())
-      .then((res) => setData(res.data))
-      .catch(console.error);
-  }, []);
-
+export default function Stats({ data }) {
   if (!data) return null;
 
   return (
     <>
-      {/* ---------------- STATS SECTION ---------------- */}
-      <motion.section
-        className="container mx-auto text-white mb-40 border-b border-[#ccc9] pb-20"
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, margin: "-100px" }}
-      >
-        <motion.h2 className="text-[40px] text-center font-bold">
-          {data.heading}
-        </motion.h2>
-
-        <motion.p className="text-[18px] text-center mt-3">
-          {data.desc}
-        </motion.p>
+      {/* STATS */}
+      <motion.section className="container mx-auto text-white mb-40 border-b border-[#ccc9] pb-20">
+        <h2 className="text-[40px] text-center font-bold">{data.heading}</h2>
+        <p className="text-[18px] text-center mt-3">{data.desc}</p>
 
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center my-10">
           {data.counters.map((item) => (
-            <StatCounter key={item.id} value={item.value} label={item.label} />
+            <StatCounter
+              key={item._id}
+              value={item.value}
+              label={item.label}
+            />
           ))}
         </div>
 
@@ -73,7 +53,20 @@ export default function Stats() {
         )}
       </motion.section>
 
-      {/* ---------------- CONTENT SPLIT SECTION ---------------- */}
+      {/* CONTENT SPLIT */}
+      {/* {data.cta && (
+        <motion.section className="container mx-auto max-w-6xl text-white mb-40">
+          <div className="flex justify-between gap-20">
+            <h2 className="text-[40px]">{data.cta.heading}</h2>
+            <div className="w-[50%]">
+              <p className="text-[18px]">{data.cta.desc}</p>
+              <button className="secondary-btn mt-8">
+                {data.cta.cta}
+              </button>
+            </div>
+          </div>
+        </motion.section>
+      )} */}
       {data.cta && (
         <motion.section
           className="container mx-auto max-w-6xl text-white mb-40"
@@ -93,7 +86,8 @@ export default function Stats() {
         </motion.section>
       )}
 
-      {/* ---------------- SLIDER SECTION ---------------- */}
+
+      {/* SLIDER */}
       <section className="relative py-24 pt-0">
         <Swiper
           modules={[Pagination]}
@@ -104,65 +98,65 @@ export default function Stats() {
           pagination={{ clickable: true }}
           breakpoints={{ 1024: { slidesPerView: 1.5 } }}
         >
-          {data.cases.map((slide) => (
-            <SwiperSlide key={slide.id}>
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6 }}
-                viewport={{ once: true }}
-                className="relative h-[520px] rounded-xl overflow-hidden"
-              >
-                <img
-                  src={`${STRAPI_URL}${slide.image.url}`}
-                  alt={slide.title}
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-black/40" />
+          {data.cases.map((slide) => {
+            const imageUrl = urlFor(slide.image)
+              .width(1200)
+              .height(600)
+              .url();
 
-                <div className="relative z-10 h-full flex flex-col justify-center items-center text-center px-10">
-                  <h3 className="text-white text-3xl md:text-4xl font-semibold max-w-3xl leading-tight">
-                    {slide.title}
-                  </h3>
-
-                  {slide.link && (
-                    <a href={slide.link} className="mt-8 text-sm font-medium">
-                      Read the case study →
-                    </a>
-                  )}
+            return (
+              <SwiperSlide key={slide._id}>
+                <div className="relative h-[520px] rounded-xl overflow-hidden">
+                  <img
+                    src={imageUrl}
+                    alt={slide.title}
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-black/40" />
+                  <div className="relative z-10 h-full flex flex-col justify-center items-center text-center px-10">
+                    <h3 className="text-white text-3xl md:text-4xl font-semibold">
+                      {slide.title}
+                    </h3>
+                    {slide.link && (
+                      <a href={slide.link} className="mt-8 text-sm font-medium">
+                        Read the case study →
+                      </a>
+                    )}
+                  </div>
                 </div>
-              </motion.div>
-            </SwiperSlide>
-          ))}
+              </SwiperSlide>
+            );
+          })}
         </Swiper>
+      </section>
 
-        {/* ---------------- CTA SECTION ---------------- */}
-        <motion.section
-          className="
+      <motion.section
+        className="
           bg-[url('https://kpidigital.com/wp-content/uploads/2023/01/Group-13886-1.png')]
           bg-cover bg-no-repeat py-20 pt-20
         "
-          initial={{ opacity: 0, y: 60 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
-          <div className="max-w-7xl mx-auto px-6 text-center text-white">
-            <h2 className="text-[35px] font-bold mb-10">
-              Your transformation journey starts now.
-              <span className="block font-normal">Are you ready?</span>
-            </h2>
+        initial={{ opacity: 0, y: 60 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+      >
+        <div className="max-w-7xl mx-auto px-6 text-center text-white">
+          <h2 className="text-[35px] font-bold mb-10">
+            Your transformation journey starts now.
+            <span className="block font-normal">Are you ready?</span>
+          </h2>
 
-            <motion.button
-              whileHover={{ scale: 1.08 }}
-              whileTap={{ scale: 0.95 }}
-              className="primary-btn text-lg py-4"
-            >
-              Talk to an expert
-            </motion.button>
-          </div>
-        </motion.section>
-      </section>
+          <motion.button
+            whileHover={{ scale: 1.08 }}
+            whileTap={{ scale: 0.95 }}
+            className="primary-btn text-lg py-4"
+          >
+            Talk to an expert
+          </motion.button>
+        </div>
+      </motion.section>
     </>
   );
 }
+
+

@@ -1,15 +1,19 @@
+import { client } from "@/lib/sanity";
 import PartnersMotion from "./PartnersMotion";
 
 async function getPartners() {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/partnerss?populate[logos][populate]=image`,
-    { cache: "no-store" }
-  );
-
-  if (!res.ok) return null;
-
-  const json = await res.json();
-  return json?.data;
+  return await client.fetch(`
+   *[_type == "partnersSection"][0]{
+  introText,
+  heading,
+  description,
+  logos[]->{
+    _id,
+    image,
+    alt
+  }
+}
+  `);
 }
 
 export default async function Partners() {

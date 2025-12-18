@@ -1,46 +1,49 @@
 import Link from "next/link";
+import { client, urlFor } from "@/lib/sanity";
 
 async function getFooter() {
-  const res = await fetch(
-    "https://cms-server-yog6.onrender.com/api/footer?populate=*",
-    { cache: "no-store" }
-  );
-
-  const json = await res.json();
-  return json.data;
+  return await client.fetch(`
+    *[_type == "footer"][0]{
+      logo,
+      companyLinks,
+      resourceLinks,
+      newsletterTitle,
+      newsletterDesc,
+      socialLinks,
+      copyright,
+      privacyLink
+    }
+  `);
 }
 
 export default async function Footer() {
   const footer = await getFooter();
-
   if (!footer) return null;
 
-  const logoUrl = footer.logo?.url;
-
   return (
-    <footer className="bg-[#071a2f] text-white">
-      <div className="max-w-[1400px] mx-auto px-6 pb-10">
+    <footer className="bg-[#071a2f] text-white container mx-auto py-16">
+      <div className="max-auto">
 
-        {/* TOP GRID */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+        {/* ================= TOP GRID ================= */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 md:gap-12 items-start">
 
           {/* LOGO */}
-          <div>
-            {logoUrl && (
+          <div className="flex justify-center sm:justify-start">
+            {footer.logo && (
               <img
-                src={`https://cms-server-yog6.onrender.com${logoUrl}`}
-                alt="Logo"
-                className="w-[170px]"
+                src={urlFor(footer.logo).url()}
+                alt="KPI Digital"
+                className="w-[140px] sm:w-[170px]"
               />
             )}
           </div>
 
           {/* COMPANY LINKS */}
-          <div>
+          <div className="text-center sm:text-left">
             <h4 className="font-semibold mb-4">Company</h4>
             <ul className="space-y-3 text-white/80">
-              {footer.companyLinks?.map((item) => (
-                <li key={item.id}>
+              {footer.companyLinks?.map((item, index) => (
+                <li key={index}>
                   <Link href={item.url}>{item.label}</Link>
                 </li>
               ))}
@@ -48,11 +51,11 @@ export default async function Footer() {
           </div>
 
           {/* RESOURCE LINKS */}
-          <div>
+          <div className="text-center sm:text-left">
             <h4 className="font-semibold mb-4">Resources</h4>
             <ul className="space-y-3 text-white/80">
-              {footer.resourceLinks?.map((item) => (
-                <li key={item.id}>
+              {footer.resourceLinks?.map((item, index) => (
+                <li key={index}>
                   <Link href={item.url}>{item.label}</Link>
                 </li>
               ))}
@@ -60,44 +63,49 @@ export default async function Footer() {
           </div>
 
           {/* NEWSLETTER */}
-          <div>
+          <div className="text-center sm:text-left">
             <h3 className="text-2xl font-semibold mb-3">
               {footer.newsletterTitle}
             </h3>
+
             <p className="text-white/70 mb-6 text-sm">
               {footer.newsletterDesc}
             </p>
 
-            <div className="flex items-center border-b border-white/30 pb-2">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3 border-b border-white/30 pb-2">
               <input
                 type="email"
                 placeholder="Email*"
                 className="bg-transparent outline-none flex-1 text-sm placeholder-white/50"
               />
-              <button className="primary-btn-header">Subscribe</button>
+              <button className="primary-btn-header sm:whitespace-nowrap">
+                Subscribe
+              </button>
             </div>
           </div>
         </div>
 
-        {/* DIVIDER */}
+        {/* ================= DIVIDER ================= */}
         <div className="border-t border-white/20 my-12"></div>
 
-        {/* BOTTOM */}
-        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+        {/* ================= BOTTOM ================= */}
+        <div className="flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left">
 
           {/* SOCIAL LINKS */}
-          <div className="flex gap-4">
-            {footer.socialLinks?.map((item) => (
+          <div className="flex gap-4 justify-center md:justify-start">
+            {footer.socialLinks?.map((item, index) => (
               <Link
-                key={item.id}
+                key={index}
                 href={item.url}
-                className="w-10 h-10 rounded-full border border-[#00b4ff] flex items-center justify-center"
+                className="w-10 h-10 rounded-full border border-[#00b4ff] flex items-center justify-center text-[#00b4ff]"
               >
-                <img
-                  src={`https://cms-server-yog6.onrender.com${item.icon?.data?.attributes?.url}`}
-                  alt={item.label}
-                  className="w-5 h-5"
-                />
+                {item.icon && (
+                  <img
+                    src={urlFor(item.icon).width(24).height(24).url()}
+                    alt={item.label || "social"}
+                    className="w-5 h-5"
+                  />
+                )}
               </Link>
             ))}
           </div>

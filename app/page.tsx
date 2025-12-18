@@ -5,17 +5,18 @@ import Services from "@/components/Services";
 import Stats from "@/components/Stats";
 import Footer from "@/components/Footer";
 import Customer from "@/components/Customer";
+import StatsServer from "@/components/Stats.server";
 
 export default function Home() {
   return (
     <div className=" bg-[#0d1a2b]">
       <Header />
       <Hero />
-      {/* <Partners /> */}
+      <Partners />
       <Services />
-      {/*<Customer />
-      <Stats />
-      <Footer /> */}
+      <Customer />
+      <StatsServer />
+      <Footer />
     </div>
   );
 }

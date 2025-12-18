@@ -9,7 +9,7 @@ export default function Header() {
   const [header, setHeader] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:1337/api/header?populate=*")
+    fetch("https://cms-server-yog6.onrender.com/api/header?populate=*")
       .then((res) => res.json())
       .then((json) => setHeader(json.data));
   }, []);
@@ -30,7 +30,7 @@ export default function Header() {
           <div className="flex items-center gap-20">
             <Link href="/" className="flex items-center gap-2">
               <img
-                src={`http://localhost:1337${header.Logo.url}`}
+                src={`https://cms-server-yog6.onrender.com${header.Logo.url}`}
                 alt="logo"
                 width="180"
                 height="40"

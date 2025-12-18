@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 async function getFooter() {
-  const res = await fetch("http://localhost:1337/api/footer?populate=*", {
+  const res = await fetch("https://cms-server-yog6.onrender.com/api/footer?populate=*", {
     cache: "no-store",
   });
 
@@ -20,7 +20,7 @@ export default async function Footer() {
           {/* LOGO */}
           <div>
             <img
-              src={`http://localhost:1337${footer.logo.url}`}
+              src={`https://cms-server-yog6.onrender.com${footer.logo.url}`}
               alt="KPI Digital"
               className="w-[170px]"
             />
@@ -87,12 +87,12 @@ export default async function Footer() {
                 <img
                   src={
                     item.url == "linkedin"
-                      ? "http://localhost:1337/uploads/Composite_Layer_adfec8f586.svg?updatedAt=2025-12-17T10:10:52.178Z"
+                      ? "https://cms-server-yog6.onrender.com/uploads/Composite_Layer_b5092f8509.svg"
                       : item?.url == "facebook"
-                      ? "http://localhost:1337/uploads/Composite_Layer_1_6fad2d41f7.svg?updatedAt=2025-12-17T10:10:52.085Z"
+                      ? "https://cms-server-yog6.onrender.com/uploads/Composite_Layer_1_9202efcd73.svg"
                       : item?.url == "instagram"
-                      ? "http://localhost:1337/uploads/instagram_3f5d895b35.svg?updatedAt=2025-12-17T10:10:51.781Z"
-                      : "http://localhost:1337/uploads/Composite_Layer_3_22002ed8ef.svg?updatedAt=2025-12-17T10:10:51.749Z"
+                      ? "https://cms-server-yog6.onrender.com/uploads/instagram_ed8e46871f.svg"
+                      : "https://cms-server-yog6.onrender.com/uploads/Composite_Layer_3_4ce58ca360.svg"
                   }
                   alt="links"
                 />

@@ -3,7 +3,7 @@ async function getBlog(slug) {
 
     const res = await fetch(
         `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/blogs?filters[slug][$eq]=${encodeURIComponent(slug)}&populate=*`,
-        // http://localhost:1337/api/blogs?filters[slug][$eq]=headless-cms-with-next-js-and-strapi-a-complete-guide&populate=*
+        // https://cms-server-yog6.onrender.com/api/blogs?filters[slug][$eq]=headless-cms-with-next-js-and-strapi-a-complete-guide&populate=*
         { cache: "no-store" }
     );
 

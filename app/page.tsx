@@ -11,13 +11,11 @@ export default function Home() {
     <div className=" bg-[#0d1a2b]">
       <Header />
       <Hero />
-      <Partners />
+      {/* <Partners /> */}
       <Services />
-      <Customer />
-      {/* <Solutions /> */}
+      {/*<Customer />
       <Stats />
-      {/* <CaseStudies /> */}
-      <Footer />
+      <Footer /> */}
     </div>
   );
 }

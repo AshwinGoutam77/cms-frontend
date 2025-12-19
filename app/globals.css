@@ -17,49 +17,33 @@
   font-size: 17px;
   --FranklinGothic: franklin-gothic-urw;
   --sidebar-top-position: 84px;
-  --gradient-background: linear-gradient(
-    135deg,
-    var(--color-5) 15%,
-    var(--color-4) 85%
-  );
-  --gradient-card-background: linear-gradient(
-    180deg,
-    var(--color-5) 15%,
-    var(--color-4) 85%
-  );
-  --gradient-icon-background: linear-gradient(
-    180deg,
-    var(--color-4) 15%,
-    var(--color-5) 85%
-  );
-  --gradient-button-background: linear-gradient(
-    135deg,
-    var(--color-4) 15%,
-    var(--color-5) 85%
-  );
-  --gradient-header-background: linear-gradient(
-    135deg,
-    var(--color-4) 40%,
-    var(--color-5) 100%
-  );
-  --border-gradient-background: linear-gradient(
-    45deg,
-    rgba(0, 106, 250, 1) 0%,
-    rgba(0, 255, 222, 1) 100%
-  );
-  --quote-gradient-background: linear-gradient(
-    180deg,
-    var(--color-4) 50%,
-    var(--color-5) 50%
-  );
+  --gradient-background: linear-gradient(135deg,
+      var(--color-5) 15%,
+      var(--color-4) 85%);
+  --gradient-card-background: linear-gradient(180deg,
+      var(--color-5) 15%,
+      var(--color-4) 85%);
+  --gradient-icon-background: linear-gradient(180deg,
+      var(--color-4) 15%,
+      var(--color-5) 85%);
+  --gradient-button-background: linear-gradient(135deg,
+      var(--color-4) 15%,
+      var(--color-5) 85%);
+  --gradient-header-background: linear-gradient(135deg,
+      var(--color-4) 40%,
+      var(--color-5) 100%);
+  --border-gradient-background: linear-gradient(45deg,
+      rgba(0, 106, 250, 1) 0%,
+      rgba(0, 255, 222, 1) 100%);
+  --quote-gradient-background: linear-gradient(180deg,
+      var(--color-4) 50%,
+      var(--color-5) 50%);
   --menu-items-bg: rgba(14, 33, 47, 0.95);
   --menu-content-bg: rgba(14, 33, 47, 0.95);
   --menu-content-height: 73vh;
-  --gradient-circle-background: linear-gradient(
-    310deg,
-    var(--color-5) 15%,
-    var(--color-4) 85%
-  );
+  --gradient-circle-background: linear-gradient(310deg,
+      var(--color-5) 15%,
+      var(--color-4) 85%);
   --circle-arrow-background: #00e3e3;
 }
 
@@ -83,13 +67,62 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-@media (min-width: 1440px) {
-    .container {
-        max-width: 1270px !important;
-    }
+/* Base (mobile first) */
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 16px;
+  padding-right: 16px;
 }
 
+/* ≥ 640px (small devices) */
+@media (min-width: 640px) {
+  .container {
+    max-width: 640px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
 
+/* ≥ 768px (tablets) */
+@media (min-width: 768px) {
+  .container {
+    max-width: 720px;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+
+/* ≥ 1024px (laptops) */
+@media (min-width: 1024px) {
+  .container {
+    max-width: 960px;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+
+/* ≥ 1280px (large screens) */
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1140px;
+  }
+}
+
+/* ≥ 1440px (your requirement) */
+@media (min-width: 1440px) {
+  .container {
+    max-width: 1270px !important;
+  }
+}
+
+/* ≥ 1600px (ultra-wide, optional) */
+@media (min-width: 1600px) {
+  .container {
+    max-width: 1320px;
+  }
+}
 
 .primary-btn-header {
   font-size: 1rem;
